@@ -1,0 +1,14 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Node (only if you later add a package.json / Flask venv)
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# nothing here is required to run the app — it's pure static HTML/CSS/JS

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHARACTER.SYS :: D&D Soul Scanner</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Faint CRT scanline overlay (pure CSS, no images) -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <main class="app" id="app">
+
+    <!-- ============ INTRO SCREEN ============ -->
+    <section id="screen-intro" class="screen" aria-labelledby="intro-title">
+      <h1 id="intro-title" class="title glow">&gt; CHARACTER.SYS<span class="cursor" aria-hidden="true"></span></h1>
+      <p class="subtitle">D&amp;D SOUL SCANNER // who are you, really?</p>
+
+      <div class="panel">
+        <p class="dim">
+          This scanner reads your real-life personality — how you act, decide,
+          and treat others — and resolves it into a Dungeons &amp; Dragons
+          <span class="amber">class</span> and <span class="amber">species</span>.
+          No fantasy role-play. Just honest answers.
+        </p>
+
+        <label class="field-label" for="name-input">operator name (optional):</label>
+        <input
+          id="name-input"
+          class="text-input"
+          type="text"
+          maxlength="24"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="anonymous"
+          aria-describedby="name-help"
+        />
+        <p id="name-help" class="hint dim">letters, numbers, spaces, - and _ only · max 24 chars</p>
+
+        <fieldset class="mode-select">
+          <legend class="field-label">scan depth:</legend>
+          <label class="radio">
+            <input type="radio" name="mode" value="short" checked />
+            <span><strong>SHORT</strong> — 15 questions (~4 min)</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="mode" value="full" />
+            <span><strong>FULL</strong> — 35 questions (deeper read)</span>
+          </label>
+        </fieldset>
+
+        <button id="start-btn" class="btn btn-primary">▸ BEGIN SCAN</button>
+      </div>
+
+      <p class="footer-note dim">text-only · no tracking · runs entirely in your browser</p>
+    </section>
+
+    <!-- ============ QUIZ SCREEN ============ -->
+    <section id="screen-quiz" class="screen hidden" aria-labelledby="q-text">
+      <div class="progress-row">
+        <span id="progress-label" class="dim" aria-live="polite">question 1 / 15</span>
+        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="panel question-panel">
+        <p class="q-tag dim" id="q-tag">// probing</p>
+        <h2 class="question" id="q-text"></h2>
+        <div class="options" id="options" role="radiogroup" aria-label="answer options"></div>
+      </div>
+
+      <div class="controls">
+        <button id="back-btn" class="btn">◂ back</button>
+        <button id="restart-btn-quiz" class="btn btn-ghost">restart</button>
+      </div>
+      <p class="hint dim">tip: press keys <span class="amber">1–5</span> to choose · <span class="amber">Backspace</span> to go back</p>
+    </section>
+
+    <!-- ============ RESULT SCREEN ============ -->
+    <section id="screen-result" class="screen hidden" aria-labelledby="result-title">
+      <h1 id="result-title" class="title glow">&gt; SCAN COMPLETE</h1>
+      <p id="result-greeting" class="subtitle"></p>
+
+      <div class="panel result-headline">
+        <div class="result-class">
+          <span class="dim">CLASS</span>
+          <div id="res-class" class="big amber glow"></div>
+          <div id="res-subclass" class="dim"></div>
+        </div>
+        <div class="result-race">
+          <span class="dim">SPECIES</span>
+          <div id="res-race" class="big glow"></div>
+          <div id="res-race-source" class="dim tiny"></div>
+        </div>
+        <div class="result-align">
+          <span class="dim">ALIGNMENT</span>
+          <div id="res-align" class="amber"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="panel-title">// readout</p>
+        <p id="res-lore" class="lore"></p>
+      </div>
+
+      <div class="panel">
+        <p class="panel-title">// ability scores (derived from your answers)</p>
+        <div id="res-stats" class="stats"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <p class="panel-title">// strengths</p>
+          <ul id="res-strengths" class="list"></ul>
+        </div>
+        <div class="panel">
+          <p class="panel-title">// weaknesses</p>
+          <ul id="res-weaknesses" class="list"></ul>
+        </div>
+      </div>
+
+      <div class="panel runner-up">
+        <p class="panel-title">// runner-up read</p>
+        <p class="dim">
+          You were also close to
+          <span id="res-runner-class" class="amber"></span>
+          /
+          <span id="res-runner-race"></span>.
+        </p>
+      </div>
+
+      <div class="controls">
+        <button id="restart-btn" class="btn btn-primary">▸ SCAN AGAIN</button>
+        <button id="copy-btn" class="btn btn-ghost">copy result</button>
+      </div>
+      <p id="copy-note" class="hint dim" aria-live="polite"></p>
+    </section>
+
+  </main>
+
+  <!-- data first (content), then logic -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
